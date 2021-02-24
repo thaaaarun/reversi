@@ -85,6 +85,16 @@ public class board implements Cloneable {
 		}
 	}
 	
+	public int returnPlayerScore(int player) {
+		if(player==BLACK) return score_black;
+		else return score_white;
+	}
+	
+	public int returnOpponentScore(int player) {
+		if (player==BLACK) return score_white;
+		else return score_black;
+	}
+	
 	public void printScore() {
 		System.out.println("Black: " + score_black + ", White: " + score_white);
 	}

@@ -318,113 +318,113 @@ public class game {
 		return coordinate;
 	}
 
-	public static void main(String[] args) {
-		System.out.println("Choose your game:");
-		System.out.println("1. Small 4x4 reversi");
-		System.out.println("2. Medium 6x6 reversi");
-		System.out.println("3. Hard 8x8 reversi");
-		
-		Scanner scanner = new Scanner(System.in);
-		int choice;
-		while (true) {
-			System.out.println("Your choice?");
-			try {
-				choice = scanner.nextInt();
-			} catch (InputMismatchException e) {
-				System.out.println("Error: Invalid input");
-				continue;
-			}
-			if (choice < 1 || choice > 3) {
-				System.out.println("That is not a valid input. Enter new one: ");
-				continue;
-			}
-			break;
-		}
-		int boardSize = choice*2+2;
-		board board = new board(boardSize);
-		
-		System.out.println("Choose your opponent:");
-		System.out.println("1. An agent that plays randomly");
-		System.out.println("2. An agent that uses MINIMAX");
-		System.out.println("3. An agent that uses MINIMAX with alpha-beta pruning");
-		System.out.println("4. An agent that uses H-MINIMAX with a fixed depth cutoff and a-b pruning");
-		
-		int option;
-		while (true) {
-			System.out.println("Your choice?");
-			try {
-				option = scanner.nextInt();
-			} catch (InputMismatchException e) {
-				System.out.println("That is not a valid input. Enter new one: ");
-				continue;
-			}
-			if (option < 1 || option > 4) {
-				System.out.println("That is not a valid input. Enter new one: ");
-				continue;
-			}
-			break;
-		}
-		String color;
-		while (true) {
-			System.out.println("Do you want to play DARK (x) or LIGHT (o)?");
-			color = scanner.next();
-			System.out.println(color);
-			if (!color.equals("x") && !color.equals("o")) {
-				System.out.println("That is not a valid input. Enter new one: ");
-				continue;
-			}
-			break;
-		}
-	
-		board.printBoard();
-
-		int player = (color=="2")?board.BLACK:board.WHITE;
-		String input = "";
-		while (!isGameOver(board)) {
-			if (player == board.BLACK) {
-				if (!canBlackMove(board)) {
-					System.out.println("Black cannot move");
-					player = returnOpponent(player);
-					continue;
-				} else
-					System.out.println("Black (x) plays.");
-			} else if (player == board.WHITE) {
-				if (!canWhiteMove(board)) {
-					System.out.println("White cannot move");
-					player = returnOpponent(player);
-					continue;
-				} else
-					System.out.println("White (o) plays");
-			}
-
-			System.out.println("Enter Your Move: ");
-			input = scanner.next();
-			
-			int[] coordinate = inputStringToArray(input);
-			
-			while (coordinate[0] < 0 || coordinate[1] < 0 || coordinate[0] >= boardSize || coordinate[1] >= boardSize) {
-				System.out.println("That is not a valid input. Enter new move: ");
-				input = scanner.next();
-				coordinate = inputStringToArray(input);
-			}
-			board tmp = makeMove(board.copy(), coordinate, player);
-			while (tmp == null || tmp.equalBoard(board)) {
-				System.out.println("That is not a valid move. Enter new move: ");
-				input = scanner.next();
-				tmp = makeMove(board.copy(), inputStringToArray(input), player);
-			}
-
-			makeMove(board, inputStringToArray(input), player).printBoard();
-			player = returnOpponent(player);
-		}
-
-		System.out.println("Game Over");
-		if (board.score_white == board.score_black)
-			System.out.println("Draw");
-		else if (board.score_white > board.score_black)
-			System.out.println("White Wins");
-		else
-			System.out.println("Black Wins");
-	}
+//	public static void main(String[] args) {
+//		System.out.println("Choose your game:");
+//		System.out.println("1. Small 4x4 reversi");
+//		System.out.println("2. Medium 6x6 reversi");
+//		System.out.println("3. Hard 8x8 reversi");
+//		
+//		Scanner scanner = new Scanner(System.in);
+//		int choice;
+//		while (true) {
+//			System.out.println("Your choice?");
+//			try {
+//				choice = scanner.nextInt();
+//			} catch (InputMismatchException e) {
+//				System.out.println("Error: Invalid input");
+//				continue;
+//			}
+//			if (choice < 1 || choice > 3) {
+//				System.out.println("That is not a valid input. Enter new one: ");
+//				continue;
+//			}
+//			break;
+//		}
+//		int boardSize = choice*2+2;
+//		board board = new board(boardSize);
+//		
+//		System.out.println("Choose your opponent:");
+//		System.out.println("1. An agent that plays randomly");
+//		System.out.println("2. An agent that uses MINIMAX");
+//		System.out.println("3. An agent that uses MINIMAX with alpha-beta pruning");
+//		System.out.println("4. An agent that uses H-MINIMAX with a fixed depth cutoff and a-b pruning");
+//		
+//		int option;
+//		while (true) {
+//			System.out.println("Your choice?");
+//			try {
+//				option = scanner.nextInt();
+//			} catch (InputMismatchException e) {
+//				System.out.println("That is not a valid input. Enter new one: ");
+//				continue;
+//			}
+//			if (option < 1 || option > 4) {
+//				System.out.println("That is not a valid input. Enter new one: ");
+//				continue;
+//			}
+//			break;
+//		}
+//		String color;
+//		while (true) {
+//			System.out.println("Do you want to play DARK (x) or LIGHT (o)?");
+//			color = scanner.next();
+//			System.out.println(color);
+//			if (!color.equals("x") && !color.equals("o")) {
+//				System.out.println("That is not a valid input. Enter new one: ");
+//				continue;
+//			}
+//			break;
+//		}
+//	
+//		board.printBoard();
+//
+//		int player = (color=="2")?board.BLACK:board.WHITE;
+//		String input = "";
+//		while (!isGameOver(board)) {
+//			if (player == board.BLACK) {
+//				if (!canBlackMove(board)) {
+//					System.out.println("Black cannot move");
+//					player = returnOpponent(player);
+//					continue;
+//				} else
+//					System.out.println("Black (x) plays.");
+//			} else if (player == board.WHITE) {
+//				if (!canWhiteMove(board)) {
+//					System.out.println("White cannot move");
+//					player = returnOpponent(player);
+//					continue;
+//				} else
+//					System.out.println("White (o) plays");
+//			}
+//
+//			System.out.println("Enter Your Move: ");
+//			input = scanner.next();
+//			
+//			int[] coordinate = inputStringToArray(input);
+//			
+//			while (coordinate[0] < 0 || coordinate[1] < 0 || coordinate[0] >= boardSize || coordinate[1] >= boardSize) {
+//				System.out.println("That is not a valid input. Enter new move: ");
+//				input = scanner.next();
+//				coordinate = inputStringToArray(input);
+//			}
+//			board tmp = makeMove(board.copy(), coordinate, player);
+//			while (tmp == null || tmp.equalBoard(board)) {
+//				System.out.println("That is not a valid move. Enter new move: ");
+//				input = scanner.next();
+//				tmp = makeMove(board.copy(), inputStringToArray(input), player);
+//			}
+//
+//			makeMove(board, inputStringToArray(input), player).printBoard();
+//			player = returnOpponent(player);
+//		}
+//
+//		System.out.println("Game Over");
+//		if (board.score_white == board.score_black)
+//			System.out.println("Draw");
+//		else if (board.score_white > board.score_black)
+//			System.out.println("White Wins");
+//		else
+//			System.out.println("Black Wins");
+//	}
 
 }
