@@ -7,7 +7,11 @@ class Node{ //left child right sibling tree
 
 	//for min max
 	//lose: utility = -1, draw: utility = 0, win: utility = score
-	int utility = 0; 
+	public int utility = 0; 
+	
+	//will be updated with updateHeuristic function in minimax.java
+	//hscore stands for heuristic score
+	public int hScore = 0; 
 	
 	public Node(board board) {
 		this.board = board;
@@ -27,12 +31,16 @@ class Node{ //left child right sibling tree
 	}
 
 	public void updateUtility(int player) {
-		if (board.score_black == board.score_white) utility = 0;
+		if (board.score_black == board.score_white) {
+			utility = 0;
+			return;
+		}
 		
 		if (player == board.BLACK){
 			if (board.score_black > board.score_white)
 				utility = board.score_black;
-			else utility = -1;
+			else 
+				utility = -1;
 		}
 		
 		else if (player == board.WHITE){
